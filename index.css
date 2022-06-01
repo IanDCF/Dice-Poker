@@ -1,0 +1,22 @@
+.dpheader {
+    text-align: center;
+    font-family: 'georgia';
+  }
+  
+.dpwrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.dpcontainer {
+    font-family: 'courier new';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid steelblue;
+    width: 80%;
+    height: 80vh;
+    border-radius: 5px;
+  }
