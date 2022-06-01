@@ -40,7 +40,8 @@ const renderStart = () => {
     initText.classList.add("init-text")
     initText.innerText = "Initialize Players"
     mainContainer.appendChild(initText)
-
+   
+    // Name Input
     const nameInput = document.createElement("input")
     nameInput.classList.add("name-input")
     mainContainer.appendChild(nameInput)
@@ -55,29 +56,38 @@ const renderStart = () => {
         }
     })
 
-    // Initialize Players
+    // Initialize Players on 'Enter'
     const addPlayer = (name) => {
         let num = Players.length + 1
         Players.push(createPlayer(name, num))
     }
 
-    // Display Players' Names
+    // Display Players' Names on 'Enter'
     const nameContainer = document.createElement("div")
     const displayName = () => {
         let x = Players.length - 1
         const playerName = document.createElement("h4")
-        playerName.classList.add("player-name")
+        playerName.classList.add("player-names")
         playerName.innerText = `Player ${Players[x].num}: ${Players[x].name}`
         nameContainer.appendChild(playerName)
     }
     mainContainer.appendChild(nameContainer)
 
-
-
-
-    
     // Start Button
-    renderDashboard()
+    const startBtn = document.createElement("button")
+    startBtn.classList.add("start-btn")
+    const startBtnText = document.createElement("h3")
+    startBtnText.innerText = "Play"
+    startBtn.appendChild(startBtnText)
+    mainContainer.appendChild(startBtn)
+
+    startBtn.onclick = () => {
+        mainContainer.removeChild(initText)
+        mainContainer.removeChild(nameInput)
+        mainContainer.removeChild(nameContainer)
+        mainContainer.removeChild(startBtn)
+        renderDashboard()
+    }
 }
 
 renderStart()
