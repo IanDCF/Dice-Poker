@@ -20,10 +20,16 @@ const renderPrompt = () => {
     renderResult()
 }
 
+// Dice Roll ___________________________________________
+const diceRoll = () => {
+
+}
+
 // Render Game Dashboard ____________________________
 const renderDashboard = () => {
     // Display Player Name
     // Dice Roll --> Roll Button and Store Data
+    diceRoll()
     // Next Player's --> next button after dice roll
     renderPrompt()
 }
@@ -45,7 +51,7 @@ const renderStart = () => {
     const nameInput = document.createElement("input")
     nameInput.classList.add("name-input")
     mainContainer.appendChild(nameInput)
-    document.querySelector(".name-input").placeholder = "Player name..."
+    document.querySelector(".name-input").placeholder = "Player Name + 'Enter'"
     nameInput.addEventListener("keypress", (event) => {
         if(event.key === "Enter") {
             event.preventDefault()
@@ -82,11 +88,15 @@ const renderStart = () => {
     mainContainer.appendChild(startBtn)
 
     startBtn.onclick = () => {
+        if(Players.length < 2) {
+            alert("Initialize at least two players to start game.")
+        } else {
         mainContainer.removeChild(initText)
         mainContainer.removeChild(nameInput)
         mainContainer.removeChild(nameContainer)
         mainContainer.removeChild(startBtn)
         renderDashboard()
+        }
     }
 }
 
