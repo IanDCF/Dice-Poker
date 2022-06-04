@@ -5,8 +5,8 @@ let y = 0;
 
 const renderResult = () => {
     console.log(0)
-    // For each player
-    // Display Name
+    // Create Table with Ranking
+    // Display Name & number
     // Roll results
     // Evaluation of Result
     //getResult()
@@ -36,6 +36,39 @@ const renderPrompt = () => {
             renderResult()
         }
     // second to second last time rendering prompt page 
+    } else if (y === 0) {
+        const nameContainer = document.createElement("div")
+        const playersText = document.createElement("h2")
+        playersText.innerHTML = "Registered Players:"
+        nameContainer.appendChild(playersText)
+
+       for (let x = 0; x < Players.length; x++) {
+            const playerName = document.createElement("h3")
+            playerName.classList.add("player-names")
+            playerName.innerText = `Player ${Players[x].num}: ${Players[x].name}`
+            nameContainer.appendChild(playerName)
+       }    
+
+        mainContainer.appendChild(nameContainer)
+
+        const promptContainer = document.createElement("div")
+        const promptText = document.createElement("h2")
+        promptText.innerHTML = `Player ${Players[y].num}: ${Players[y].name}, are you ready?`
+        promptContainer.appendChild(promptText)
+
+        const promptBtn = document.createElement("button")
+        const promptBtnText = document.createElement("h3")
+        promptBtnText.innerHTML = "READY"
+        promptBtn.appendChild(promptBtnText)
+        promptContainer.appendChild(promptBtn)
+
+        mainContainer.appendChild(promptContainer)
+
+        promptBtn.onclick = () => {
+            mainContainer.removeChild(nameContainer)
+            mainContainer.removeChild(promptContainer)
+            renderDashboard()
+        }
     } else if (y >= 1 || y <= Players.length - 2) {
         const nameContainer = document.createElement("div")
         const playersText = document.createElement("h2")
@@ -73,40 +106,7 @@ const renderPrompt = () => {
         }
 
     // last time rendering prompt page
-    } else if (y === 0) {
-        const nameContainer = document.createElement("div")
-        const playersText = document.createElement("h2")
-        playersText.innerHTML = "Registered Players:"
-        nameContainer.appendChild(playersText)
-
-       for (let x = 0; x < Players.length; x++) {
-            const playerName = document.createElement("h3")
-            playerName.classList.add("player-names")
-            playerName.innerText = `Player ${Players[x].num}: ${Players[x].name}`
-            nameContainer.appendChild(playerName)
-       }    
-
-        mainContainer.appendChild(nameContainer)
-
-        const promptContainer = document.createElement("div")
-        const promptText = document.createElement("h2")
-        promptText.innerHTML = `Player ${Players[y].num}: ${Players[y].name}, are you ready?`
-        promptContainer.appendChild(promptText)
-
-        const promptBtn = document.createElement("button")
-        const promptBtnText = document.createElement("h3")
-        promptBtnText.innerHTML = "READY"
-        promptBtn.appendChild(promptBtnText)
-        promptContainer.appendChild(promptBtn)
-
-        mainContainer.appendChild(promptContainer)
-
-        promptBtn.onclick = () => {
-            mainContainer.removeChild(nameContainer)
-            mainContainer.removeChild(promptContainer)
-            renderDashboard()
-        }
-    }
+    } 
 }
 
 // Generate Random Number (range: [1,6])
@@ -138,6 +138,7 @@ const renderDashboard = () => {
 
     // Dice Roll on click
     rollBtn.onclick = () => {
+        nameContainer.removeChild(rollBtn)
         let i = 0
         while (i < 5) {
             //generate random number between 1 - 6
