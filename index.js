@@ -3,6 +3,78 @@ let Players = []
 // It is player y's turn to roll the dice
 let y = 0;
 
+const evaluationMap = {
+    five_of_kind: 1,
+    four_of_kind: 2,
+    full_house: 3,
+    straight: 4,
+    three_of_kind: 5,
+    two_pairs: 6,
+    pair: 7,
+    nothing: 8,
+}
+
+const getEvaluation = (roll) => {
+    const isFiveOfAKind = (roll) => {
+        let hasDifferent = false
+        for (let i = 1; i < roll.length; i++) {
+            if (roll[0] !== roll[i]) hasDifferent = true
+        }
+        return hasDifferent
+    }
+    const isFourOfAKind = (roll) => {
+        const pairArr = [0, 0, 0, 0, 0, 0]
+        roll.forEach(elem => pairArr[elem - 1]++)
+
+        return !!(pairArr.indexOf(4))
+    }
+    const isFullHouse = (roll) => {
+        const pairArr = [0, 0, 0, 0, 0, 0]
+        roll.forEach(elem => pairArr[elem - 1]++)
+
+        return !!(pairArr.indexOf(3) && pairArr.indexOf(2))
+    }
+
+    const isStraight = (roll) => {
+        const sortedRoll = roll.sort()
+        let test = true
+
+        for (let i = 0; i < roll.length - 1; i++) {
+            if (sortedRoll[i] !== sortedRoll[i + 1] - 1) test = false
+        }
+
+        return test
+    }
+
+}
+
+const getPlayersRanking = (players) => {
+    const result = []
+    players.forEach(player => {
+        const eval = getEvaluation(player.roll)
+        result.push({...player, eval: eval, })
+    })
+}
+
+const renderResultTable = () => {
+    const sortedPlayers = getPlayersRanking()
+    Players.forEach(player => {
+        const row = document.createElement("div")
+        row.classList.add("dp-result-table-row")
+
+        const colRank = document.createElement("span")
+        colRank.innerText = getEvaluation(player.roll)
+        const colName = document.createElement("span")
+        colName.innerText = player.name
+        const colRoll = document.createElement("span")
+        colRoll.innerText = player.roll
+        const colEval = document.createElement("span")
+        colEval.innerText = player.eval
+
+        row.append(colRank, colName, colRoll, colEval)
+    })
+}
+
 const renderResult = () => {
     console.log(0)
     // Create Table with Ranking
@@ -35,19 +107,19 @@ const renderPrompt = () => {
             mainContainer.removeChild(promptContainer)
             renderResult()
         }
-    // second to second last time rendering prompt page 
+        // second to second last time rendering prompt page
     } else if (y === 0) {
         const nameContainer = document.createElement("div")
         const playersText = document.createElement("h2")
         playersText.innerHTML = "Registered Players:"
         nameContainer.appendChild(playersText)
 
-       for (let x = 0; x < Players.length; x++) {
+        for (let x = 0; x < Players.length; x++) {
             const playerName = document.createElement("h3")
             playerName.classList.add("player-names")
             playerName.innerText = `Player ${Players[x].num}: ${Players[x].name}`
             nameContainer.appendChild(playerName)
-       }    
+        }
 
         mainContainer.appendChild(nameContainer)
 
@@ -82,7 +154,7 @@ const renderPrompt = () => {
             playerName.innerText = `Player ${Players[x].num}: ${Players[x].name}`
             nameContainer.appendChild(playerName)
             x++
-        }    
+        }
 
         mainContainer.appendChild(nameContainer)
 
@@ -105,8 +177,8 @@ const renderPrompt = () => {
             renderDashboard()
         }
 
-    // last time rendering prompt page
-    } 
+        // last time rendering prompt page
+    }
 }
 
 // Generate Random Number (range: [1,6])
@@ -167,29 +239,29 @@ const renderDashboard = () => {
         }
     }
 
-    
+
 }
 
 // Create Player __________________________________
 const createPlayer = (name, num) => {
-    return {name: name, num: num, roll: [], eval:'', score: 0}
+    return {name: name, num: num, roll: [], eval: ''}
 }
 
 // Render Start Page __________________________________
 const renderStart = () => {
-   
+
     const initText = document.createElement("h3")
     initText.classList.add("init-text")
     initText.innerText = "Register Players"
     mainContainer.appendChild(initText)
-   
+
     // Name Input
     const nameInput = document.createElement("input")
     nameInput.classList.add("name-input")
     mainContainer.appendChild(nameInput)
     document.querySelector(".name-input").placeholder = "Player Name + 'Enter'"
     nameInput.addEventListener("keypress", (event) => {
-        if(event.key === "Enter") {
+        if (event.key === "Enter") {
             event.preventDefault()
             console.log(event.target.value)
             addPlayer(event.target.value)
@@ -224,14 +296,14 @@ const renderStart = () => {
     mainContainer.appendChild(startBtn)
     // Start Button on click --> render next page
     startBtn.onclick = () => {
-        if(Players.length < 2) {
+        if (Players.length < 2) {
             alert("You must register at least two players to start game.")
         } else {
-        mainContainer.removeChild(initText)
-        mainContainer.removeChild(nameInput)
-        mainContainer.removeChild(nameContainer)
-        mainContainer.removeChild(startBtn)
-        renderPrompt()
+            mainContainer.removeChild(initText)
+            mainContainer.removeChild(nameInput)
+            mainContainer.removeChild(nameContainer)
+            mainContainer.removeChild(startBtn)
+            renderPrompt()
         }
     }
 }
@@ -239,7 +311,4 @@ const renderStart = () => {
 renderStart()
 
 
-const getResult = () => {
-    // Evaluation Logic
-}
 
