@@ -37,10 +37,10 @@ const getEvaluation = (roll) => {
 
     const isStraight = (roll) => {
         const sortedRoll = roll.sort()
-        let test = true
+        let test = false
 
         for (let i = 0; i < roll.length - 1; i++) {
-            if (sortedRoll[i] !== sortedRoll[i + 1] - 1) test = false
+            if (sortedRoll[i] !== sortedRoll[i + 1] - 1) test = true
         }
 
         return test
