@@ -14,6 +14,7 @@ const evalMap = {
     nothing: 8
 }
 
+// TEST Git
 // const getRank = (roll) => {
     
 // }
