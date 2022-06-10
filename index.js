@@ -7,17 +7,17 @@ let y = 0;
 //let tableHeaders = ['Ranking', 'Name', 'Roll', 'Evaluation']
 
 const evalMap = {
-    first: "Five of a kind",
-    second: "Four of a kind",
-    third: "Full House",
-    fourth: "Straight",
-    fifth: "Three of a kind",
-    sixth: "Two Pairs",
-    seventh: "One Pair",
-    eigth: "Nothing"
+    A: "Five of a kind",
+    B: "Four of a kind",
+    C: "Full House",
+    D: "Straight",
+    E: "Three of a kind",
+    F: "Two Pairs",
+    G: "One Pair",
+    I: "Nothing"
 }
 
-const getResult = (roll) => {
+const processRoll = (roll) => {
     // Evaluation Logic
     const isFiveOfKind = (roll) => {
         let confirm = true
@@ -70,78 +70,43 @@ const getResult = (roll) => {
         return map.includes(2)
     }
     
-    if(isFiveOfKind(roll)) return evalMap.first
-    if(isFourOfKind(roll)) return evalMap.second
-    if(isFullHouse(roll)) return evalMap.third
-    if(isStraight(roll)) return evalMap.fourth
-    if(isThreeOfKind(roll)) return evalMap.fifth
-    if(isTwoPairs(roll)) return evalMap.sixth
-    if(isPair(roll)) return evalMap.seventh
-    return evalMap.eigth
+    if(isFiveOfKind(roll)) return evalMap.A
+    if(isFourOfKind(roll)) return evalMap.B
+    if(isFullHouse(roll)) return evalMap.C
+    if(isStraight(roll)) return evalMap.D
+    if(isThreeOfKind(roll)) return evalMap.E
+    if(isTwoPairs(roll)) return evalMap.F
+    if(isPair(roll)) return evalMap.G
+    return evalMap.I
     
 }
 
-const getEval = (players) => {
-    players.forEach(player => {
-       player.eval = getResult(player.roll)
+const getEval = () => {
+    Players.forEach(player => {
+       player.eval = processRoll(player.roll)
+    })
+    getRank()
+}
+
+const processRank = (evalMap, eval) => {
+    return Object.keys(evalMap).find(key => evalMap[key] === eval)
+}
+
+const getRank = () => {
+    Players.forEach(player => {
+        player.rank = processRank(evalMap, player.eval)
+    })
+    sortPlayers()
+}
+
+const sortPlayers = () => {
+    Players.sort((a, b) => {
+        if (a.rank < b.rank) return -1;
+        if (a.rank > b.rank) return 1;
+        return 0;
     })
     console.log(Players)
 }
-
-// const renderTable = () => {
-//     const rankedPlayers = getRank(Players)
-//     console.log(rankedPlayers)
-// }
-
-
-
-// const renderResult = () => {
-//     renderTable()
-// }
-
-
-    // Evaluate Result
-    // Display Table with rankings
-    // Score Board 
-    // const scoreBoard = document.createElement("table")
-    // const headerRow = document.createElement("tr")
-
-    // tableHeaders.forEach( header => {
-    //     const tableHeader = document.createElement("th")
-    //     const textNode = document.createTextNode(header)
-    //     tableHeader.appendChild(textNode)
-    //     headerRow.appendChild(tableHeader)
-    // })
-    // scoreBoard.appendChild(headerRow)
-
-        //let textNodes = [Players.ranking, Players.name, Players.roll, Players.eval]
-        // const rankings = Players.map(player => player.ranking)
-        // console.log(rankings)
-        // const names = Players.map( player => player.name)
-        // const rolls = Players.map( player => player.roll)
-        // const evals = Players.map( player => player.eval)
-
-        // const row = document.createElement("tr")
-        // Players.forEach(player => {
-        //     Object.values(player).forEach(value => {
-        //         const cell = document.createElement("td")
-        //         const textNode = document.createTextNode(value)
-        //         cell.appendChild(textNode)
-        //         row.appendChild(cell)
-        //     })
-        //     scoreBoard.appendChild(row)
-        //     })
-       
-    // mainContainer.appendChild(scoreBoard)
-
-    // Create Table with Ranking
-    // Display Name & number
-    // Roll results
-    // Evaluation of Result
-    //getResult()
-
-    // New Game (same players)
-    // Reset Settings (return to default settings)
 
 
 // Render Prompt ______________________________________
@@ -163,7 +128,7 @@ const renderPrompt = () => {
 
         promptBtn.onclick = () => {
             mainContainer.removeChild(promptContainer)
-            getEval(Players)
+            getEval()
         }
     // second to second last time rendering prompt page 
     } else if (y === 0) {
@@ -302,7 +267,7 @@ const renderDashboard = () => {
 
 // Create Player __________________________________
 const createPlayer = (name, num) => {
-    return {name: name, num: num, roll: [], eval: ''}
+    return {name: name, num: num, roll: [], eval: '', rank:''}
 }
 
 // Render Start Page __________________________________
