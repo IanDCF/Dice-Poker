@@ -81,12 +81,12 @@ const getResult = (roll) => {
     
 }
 
-// const getRank = (players) => {
-//     const rankedPlayers = players.forEach(player => {
-//         player = {player, eval: getResult(player.roll)}
-//     })
-//     console.log(rankedPlayers)
-// }
+const getEval = (players) => {
+    players.forEach(player => {
+       player.eval = getResult(player.roll)
+    })
+    console.log(Players)
+}
 
 // const renderTable = () => {
 //     const rankedPlayers = getRank(Players)
@@ -163,7 +163,7 @@ const renderPrompt = () => {
 
         promptBtn.onclick = () => {
             mainContainer.removeChild(promptContainer)
-            getResult()
+            getEval(Players)
         }
     // second to second last time rendering prompt page 
     } else if (y === 0) {
@@ -302,7 +302,7 @@ const renderDashboard = () => {
 
 // Create Player __________________________________
 const createPlayer = (name, num) => {
-    return {name: name, num: num, roll: []}
+    return {name: name, num: num, roll: [], eval: ''}
 }
 
 // Render Start Page __________________________________
