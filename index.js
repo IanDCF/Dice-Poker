@@ -3,6 +3,7 @@ let Players = []
 
 // It is player y's turn to roll the dice
 let y = 0;
+let x = 0;
 
 //let tableHeaders = ['Ranking', 'Name', 'Roll', 'Evaluation']
 
@@ -106,8 +107,57 @@ const sortPlayers = () => {
         return 0;
     })
     console.log(Players)
+    renderResult()
 }
 
+const renderResult = () => {
+    const winner = document.createElement("h1")
+    winner.innerText = `The WINNER is ${Players[0].name} with a ${Players[0].eval}`
+    mainContainer.appendChild(winner)
+
+    const newGameBtn = document.createElement("button")
+    const newGameTxt = document.createElement("h3")
+    newGameTxt.innerText = "New Game"
+    newGameBtn.appendChild(newGameTxt)
+    mainContainer.appendChild(newGameBtn)
+
+    newGameBtn.onclick = () => {
+        mainContainer.removeChild(winner)
+        mainContainer.removeChild(newGameBtn)
+        mainContainer.removeChild(resetBtn)
+        Players.sort((a, b) => {
+            if (a.num < b.num) return -1;
+            if (a.num > b.num) return 1;
+            return 0;
+        })
+        Players.forEach( player => {
+            player.rank = ''
+            player.eval = ''
+            player.roll = []
+        })
+        y = 0
+        x = 0
+        renderStart()
+    }
+
+    const resetBtn = document.createElement("button")
+    const resetTxt = document.createElement("h3")
+    resetTxt.innerText = "Reset"
+    resetBtn.appendChild(resetTxt)
+    mainContainer.appendChild(resetBtn)
+
+    resetBtn.onclick = () => {
+        mainContainer.removeChild(winner)
+        mainContainer.removeChild(newGameBtn)
+        mainContainer.removeChild(resetBtn)
+        Players = []
+        y = 0
+        x = 0
+        renderStart()
+    }
+
+
+}
 
 // Render Prompt ______________________________________
 const renderPrompt = () => {
@@ -302,12 +352,15 @@ const renderStart = () => {
     // Display Players' Names on 'Enter'
     const nameContainer = document.createElement("div")
     const displayName = () => {
-        let x = Players.length - 1
+        while(x < Players.length) {
         const playerName = document.createElement("h4")
         playerName.classList.add("player-names")
         playerName.innerText = `Player ${Players[x].num}: ${Players[x].name}`
         nameContainer.appendChild(playerName)
+        x++
+        }
     }
+    displayName()
     mainContainer.appendChild(nameContainer)
 
     // Start Button
