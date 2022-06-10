@@ -1,90 +1,103 @@
 const mainContainer = document.querySelector(".dpcontainer")
 let Players = []
+
 // It is player y's turn to roll the dice
 let y = 0;
-//let tableHeaders = ['Ranking', 'Name', 'Roll', 'Evaluation']
-const evalMap = {
-    five_of_kind: 1,
-    four_of_kind: 2,
-    full_house: 3,
-    straight: 4,
-    three_of_kind: 5,
-    two_pairs: 6,
-    pair: 7,
-    nothing: 8
-}
 
-// TEST Git
-// const getRank = (roll) => {
-    
-// }
+//let tableHeaders = ['Ranking', 'Name', 'Roll', 'Evaluation']
+
+const evalMap = {
+    first: "Five of a kind",
+    second: "Four of a kind",
+    third: "Full House",
+    fourth: "Straight",
+    fifth: "Three of a kind",
+    sixth: "Two Pairs",
+    seventh: "One Pair",
+    eigth: "Nothing"
+}
 
 const getResult = (roll) => {
     // Evaluation Logic
     const isFiveOfKind = (roll) => {
-        let confirm = false
-        for (let i = 1; i < roll.length; i++) {
-            if (roll[0] === roll[i]) confirm = true;
+        let confirm = true
+        for (let i = 0; i < roll.length - 1; i++) {
+            if (roll[i] !== roll[i + 1]) {
+                confirm = false
+            }
         }
         return confirm
     }
 
     const isFourOfKind = (roll) => {
-        let map = [0, 0, 0, 0, 0, 0]
+        let map = [0, 0, 0, 0, 0, 0, 0]
         roll.forEach( e => map[e]++)
-        return !!(map.indexOf(4))
+        return map.includes(4)
     }
 
     const isFullHouse = (roll) => {
-        let map = [0, 0, 0, 0, 0, 0]
+        let map = [0, 0, 0, 0, 0, 0, 0]
         roll.forEach( e => map[e]++)
-        return !!(map.indexOf(3) && map.indexOf(2))
+        return (map.includes(3) && map.includes(2))
     }
 
     const isStraight = (roll) => {
         roll.sort()
-        let confirm = false
+        let confirm = true
         for (let i = 0; i < roll.length - 1; i++) {
-            if(roll[i] === roll[i + 1] - 1) confirm = true
+            if(roll[i] !== roll[i + 1] - 1) {
+                confirm = false
+            }
         }
         return confirm
     }
 
     const isThreeOfKind = (roll) => {
-        let map = [0, 0, 0, 0, 0, 0]
-        roll.forEach( e => map[e]++)
-        return !!(map.indexOf(3))
+        let map = [0, 0, 0, 0, 0, 0, 0]
+        roll.forEach( e => map[e]++ )
+        return map.includes(3)
     }
 
     const isTwoPairs = (roll) => {
-        let map = [0, 0, 0, 0, 0, 0]
-        roll.forEach( e => map[e]++)
-        return !!(map.filter(e => e === 2).length === 2)
+        let map = [0, 0, 0, 0, 0, 0, 0]
+        roll.forEach( e => map[e]++ )
+        return (map.filter(e => e === 2).length === 2)
     }
 
     const isPair = (roll) => {
-        let map = [0, 0, 0, 0, 0, 0]
-        roll.forEach( e => map[e]++)
-        return !!(map.indexOf(2))
+        let map = [0, 0, 0, 0, 0, 0, 0]
+        roll.forEach( e => map[e]++ )
+        return map.includes(2)
     }
-
-    if(isFiveOfKind(roll)) return evalMap.five_of_kind
-    if(isFourOfKind(roll)) return evalMap.four_of_kind
-    if(isFullHouse(roll)) return evalMap.full_house
-    if(isStraight(roll)) return evalMap.straight
-    if(isThreeOfKind(roll)) return evalMap.three_of_kind
-    if(isTwoPairs(roll)) return evalMap.two_pairs
-    if(isPair(roll)) return evalMap.pair
-    return evalMap.nothing
-
+    
+    if(isFiveOfKind(roll)) return evalMap.first
+    if(isFourOfKind(roll)) return evalMap.second
+    if(isFullHouse(roll)) return evalMap.third
+    if(isStraight(roll)) return evalMap.fourth
+    if(isThreeOfKind(roll)) return evalMap.fifth
+    if(isTwoPairs(roll)) return evalMap.sixth
+    if(isPair(roll)) return evalMap.seventh
+    return evalMap.eigth
+    
 }
 
+// const getRank = (players) => {
+//     const rankedPlayers = players.forEach(player => {
+//         player = {player, eval: getResult(player.roll)}
+//     })
+//     console.log(rankedPlayers)
+// }
+
 // const renderTable = () => {
+//     const rankedPlayers = getRank(Players)
+//     console.log(rankedPlayers)
+// }
 
 
 
-const renderResult = () => {
-    
+// const renderResult = () => {
+//     renderTable()
+// }
 
 
     // Evaluate Result
@@ -129,7 +142,7 @@ const renderResult = () => {
 
     // New Game (same players)
     // Reset Settings (return to default settings)
-}
+
 
 // Render Prompt ______________________________________
 const renderPrompt = () => {
@@ -150,7 +163,7 @@ const renderPrompt = () => {
 
         promptBtn.onclick = () => {
             mainContainer.removeChild(promptContainer)
-            renderResult()
+            getResult()
         }
     // second to second last time rendering prompt page 
     } else if (y === 0) {
