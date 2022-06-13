@@ -2,10 +2,10 @@ const mainContainer = document.querySelector(".dpcontainer")
 let Players = []
 
 // It is player y's turn to roll the dice
+// Change
 let y = 0;
 let x = 0;
 
-//let tableHeaders = ['Ranking', 'Name', 'Roll', 'Evaluation']
 
 const evalMap = {
     A: "Five of a kind",
@@ -19,7 +19,6 @@ const evalMap = {
 }
 
 const processRoll = (roll) => {
-    // Evaluation Logic
     const isFiveOfKind = (roll) => {
         let confirm = true
         for (let i = 0; i < roll.length - 1; i++) {
@@ -102,7 +101,7 @@ const getRank = () => {
 
 const sortPlayers = () => {
     Players.sort((a, b) => {
-        if (a.rank < b.rank) return -1;
+        if (a.rank < b.rank) return - 1;
         if (a.rank > b.rank) return 1;
         return 0;
     })
@@ -126,7 +125,7 @@ const renderResult = () => {
         mainContainer.removeChild(newGameBtn)
         mainContainer.removeChild(resetBtn)
         Players.sort((a, b) => {
-            if (a.num < b.num) return -1;
+            if (a.num < b.num) return - 1;
             if (a.num > b.num) return 1;
             return 0;
         })
@@ -322,11 +321,11 @@ const createPlayer = (name, num) => {
 
 // Render Start Page __________________________________
 const renderStart = () => {
-   
-    const initText = document.createElement("h3")
-    initText.classList.add("init-text")
-    initText.innerText = "Register Players"
-    mainContainer.appendChild(initText)
+    // "Register Players" text
+    const startText = document.createElement("h3")
+    startText.classList.add("init-text")
+    startText.innerText = "Register Players"
+    mainContainer.appendChild(startText)
    
     // Name Input
     const nameInput = document.createElement("input")
@@ -336,10 +335,11 @@ const renderStart = () => {
     nameInput.addEventListener("keypress", (event) => {
         if(event.key === "Enter") {
             event.preventDefault()
-            console.log(event.target.value)
-            addPlayer(event.target.value)
-            event.target.value = null
-            displayName()
+            if(event.target.value !== '') {
+                addPlayer(event.target.value)
+                event.target.value = null
+                displayName()
+            }
         }
     })
 
@@ -375,7 +375,7 @@ const renderStart = () => {
         if(Players.length < 2) {
             alert("You must register at least two players to start game.")
         } else {
-        mainContainer.removeChild(initText)
+        mainContainer.removeChild(startText)
         mainContainer.removeChild(nameInput)
         mainContainer.removeChild(nameContainer)
         mainContainer.removeChild(startBtn)
