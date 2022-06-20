@@ -160,7 +160,7 @@ const renderResult = () => {
 
 // Render Prompt ______________________________________
 const renderPrompt = () => {
-    // first time rendering prompt
+    // Render prompt for the last time (before results)
     if (y === Players.length) {
         const promptContainer = document.createElement("div")
         const promptText = document.createElement("h2")
@@ -179,17 +179,17 @@ const renderPrompt = () => {
             mainContainer.removeChild(promptContainer)
             getEval()
         }
-    // second to second last time rendering prompt page 
+    // Render prompt for the first time (after start page)
     } else if (y === 0) {
         const nameContainer = document.createElement("div")
         const playersText = document.createElement("h2")
         playersText.innerHTML = "Registered Players:"
         nameContainer.appendChild(playersText)
 
-       for (let x = 0; x < Players.length; x++) {
+       for (let i = 0; i < Players.length; i++) {
             const playerName = document.createElement("h3")
             playerName.classList.add("player-names")
-            playerName.innerText = `Player ${Players[x].num}: ${Players[x].name}`
+            playerName.innerText = `Player ${Players[i].num}: ${Players[i].name}`
             nameContainer.appendChild(playerName)
        }    
 
@@ -213,13 +213,14 @@ const renderPrompt = () => {
             mainContainer.removeChild(promptContainer)
             renderDashboard()
         }
+    // Render prompt in between second player roll and last player roll 
     } else if (y >= 1 || y <= Players.length - 2) {
         const nameContainer = document.createElement("div")
         const playersText = document.createElement("h2")
         playersText.innerHTML = "Players who rolled:"
         nameContainer.appendChild(playersText)
 
-        let x = 0
+        let x = 0 
         while (x < y) {
             const playerName = document.createElement("h3")
             playerName.classList.add("player-names")
@@ -248,8 +249,6 @@ const renderPrompt = () => {
             mainContainer.removeChild(promptContainer)
             renderDashboard()
         }
-
-    // last time rendering prompt page
     } 
 }
 
@@ -285,7 +284,7 @@ const renderDashboard = () => {
         nameContainer.removeChild(rollBtn)
         let i = 0
         while (i < 5) {
-            //generate random number between 1 - 6
+            //generate 5 random numbers between 1 - 6
             Players[y].roll.push(randNum())
             i++
         }
@@ -379,6 +378,7 @@ const renderStart = () => {
         mainContainer.removeChild(nameInput)
         mainContainer.removeChild(nameContainer)
         mainContainer.removeChild(startBtn)
+        console.log(Players)
         renderPrompt()
         }
     }
