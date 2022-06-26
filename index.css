@@ -3,17 +3,18 @@
     font-family: 'Monofett';
     font-size: 80px;
     margin: 5px;
+    color:rgb(122, 34, 194);
   }
 
 body {
-  background-color: rgb(124, 18, 18);
+  background-color: rgb(48, 26, 100);
 }
 
 .dpwrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(124, 18, 18);
+    background-color: rgb(48, 26, 100);
   }
   
 .dpcontainer {
@@ -27,7 +28,7 @@ body {
     width: 70%;
     height: 80vh;
     border-radius: 28px;
-    background-color: rgb(4, 91, 17)
+    background-color: rgb(234, 183, 28);
   }
 
   .name-input {
@@ -36,21 +37,26 @@ body {
     width: 23%;
     margin-bottom: 10px;
     border: 3px solid rgb(0, 0, 0);
-    background-color: rgb(135, 215, 134);
+    background-color: rgb(122, 34, 194);
     border-radius: 10px;
+    color: white;
   }
 
+  .name-input::placeholder{
+    color:rgb(215, 215, 215);
+  }
+  
   button {
     min-width: 10%;
     text-align: center;
     border-radius: 10px;
     border: 3px solid rgb(0, 0, 0);
-    background-color: rgb(124, 18, 18);
+    background-color: rgb(222, 129, 58);
     transition-duration: 0.4s;
   }
   
   button:hover {
-    background-color: #4CAF50; 
+    background-color: rgb(181, 139, 224) ; 
     color: white;
   }
 
