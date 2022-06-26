@@ -164,12 +164,12 @@ const renderPrompt = () => {
     if (y === Players.length) {
         const promptContainer = document.createElement("div")
         const promptText = document.createElement("h2")
-        promptText.innerHTML = `All players have rolled the dice, the results are IN.`
+        promptText.innerHTML = `Evaluating Results`
         promptContainer.appendChild(promptText)
 
         const promptBtn = document.createElement("button")
         const promptBtnText = document.createElement("h3")
-        promptBtnText.innerHTML = "SEE RESULT"
+        promptBtnText.innerHTML = "READY"
         promptBtn.appendChild(promptBtnText)
         promptContainer.appendChild(promptBtn)
 
@@ -183,7 +183,7 @@ const renderPrompt = () => {
     } else if (y === 0) {
         const nameContainer = document.createElement("div")
         const playersText = document.createElement("h2")
-        playersText.innerHTML = "Registered Players:"
+        playersText.innerHTML = "Registered Players"
         nameContainer.appendChild(playersText)
 
        for (let i = 0; i < Players.length; i++) {
@@ -197,7 +197,7 @@ const renderPrompt = () => {
 
         const promptContainer = document.createElement("div")
         const promptText = document.createElement("h2")
-        promptText.innerHTML = `Player ${Players[y].num}: ${Players[y].name}, are you ready?`
+        promptText.innerHTML = `${Players[y].name}, are you ready?`
         promptContainer.appendChild(promptText)
 
         const promptBtn = document.createElement("button")
@@ -217,7 +217,7 @@ const renderPrompt = () => {
     } else if (y >= 1 || y <= Players.length - 2) {
         const nameContainer = document.createElement("div")
         const playersText = document.createElement("h2")
-        playersText.innerHTML = "Players who rolled:"
+        playersText.innerHTML = "Players who rolled"
         nameContainer.appendChild(playersText)
 
         let x = 0 
@@ -233,7 +233,7 @@ const renderPrompt = () => {
 
         const promptContainer = document.createElement("div")
         const promptText = document.createElement("h2")
-        promptText.innerHTML = `Player ${Players[y].num}: ${Players[y].name}, are you ready?`
+        promptText.innerHTML = `${Players[y].name}, are you ready?`
         promptContainer.appendChild(promptText)
 
         const promptBtn = document.createElement("button")
@@ -321,7 +321,7 @@ const createPlayer = (name, num) => {
 // Render Start Page __________________________________
 const renderStart = () => {
     // "Register Players" text
-    const startText = document.createElement("h3")
+    const startText = document.createElement("h2")
     startText.classList.add("init-text")
     startText.innerText = "Register Players"
     mainContainer.appendChild(startText)
@@ -352,7 +352,7 @@ const renderStart = () => {
     const nameContainer = document.createElement("div")
     const displayName = () => {
         while(x < Players.length) {
-        const playerName = document.createElement("h4")
+        const playerName = document.createElement("h2")
         playerName.classList.add("player-names")
         playerName.innerText = `Player ${Players[x].num}: ${Players[x].name}`
         nameContainer.appendChild(playerName)
