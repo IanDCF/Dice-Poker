@@ -3,18 +3,18 @@
     font-family: 'Monofett';
     font-size: 80px;
     margin: 5px;
-    color:rgb(122, 34, 194);
+    color:#04022f;
   }
 
 body {
-  background-color: rgb(48, 26, 100);
+  background-color: #FF521B;
 }
 
 .dpwrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(48, 26, 100);
+    background-color: #FF521B;
   }
   
 .dpcontainer {
@@ -24,11 +24,11 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 8px solid rgb(0, 0, 0);
+    border: 8px solid #04022f;
     width: 70%;
     height: 80vh;
     border-radius: 28px;
-    background-color: rgb(234, 183, 28);
+    background-color: #fbebbcda;
   }
 
   .name-input {
@@ -36,27 +36,27 @@ body {
     font-size: 15px;
     width: 23%;
     margin-bottom: 10px;
-    border: 3px solid rgb(0, 0, 0);
-    background-color: rgb(122, 34, 194);
+    border: 3px solid #04022f;
+    background-color: #f18c6d8f;
     border-radius: 10px;
-    color: white;
+    color: #04022f;
   }
 
   .name-input::placeholder{
-    color:rgb(215, 215, 215);
+    color:rgb(102, 98, 98);
   }
   
   button {
     min-width: 10%;
     text-align: center;
     border-radius: 10px;
-    border: 3px solid rgb(0, 0, 0);
-    background-color: rgb(222, 129, 58);
+    border: 3px solid #04022f;
+    background-color: #ff501b;
     transition-duration: 0.4s;
   }
   
   button:hover {
-    background-color: rgb(181, 139, 224) ; 
+    background-color: #50a533e4 ; 
     color: white;
   }
 
